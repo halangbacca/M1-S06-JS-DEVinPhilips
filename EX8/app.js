@@ -1,8 +1,58 @@
-function randomUserGenerator(numeroDeUsuarios) {
-    fetch(`https://randomuser.me/api/?results=${numeroDeUsuarios}`)
-      .then((response) => response.json())
-      .then (data => console.log(data.results[0].gender))
+const criaElementoTexto = (tipo, texto) => {
+  const elemento = document.createElement(tipo);
+  elemento.innerText = texto;
+  return elemento;
+};
+
+async function buscaUsuarios(quantidade = 10) {
+  try {
+    console.log("aaaa", quantidade);
+    const resultado = await fetch(
+      `https://randomuser.me/api/?results=${quantidade}`
+    );
+    const { results } = await resultado.json();
+
+    const lista = document.getElementById("lista");
+    lista.innerHTML = "";
+
+    results.forEach((user) => {
+      const li = document.createElement("li");
+      const container = document.createElement("div");
+      const info = document.createElement("div");
+
+      container.classList.add("container");
+      info.classList.add("info");
+
+      const nome = criaElementoTexto(
+        "p",
+        `${user.name.title} ${user.name.first} ${user.name.last}`
+      );
+
+      const email = criaElementoTexto("p", user.email);
+
+      const endereco = criaElementoTexto(
+        "p",
+        `${user.location.street.name} - ${user.location.street.number} - ${user.location.city} - ${user.location.state} - ${user.location.country}`
+      );
+
+      const foto = document.createElement("img");
+      foto.src = user.picture.large;
+
+      container.appendChild(foto);
+      info.appendChild(nome);
+      info.appendChild(email);
+      info.appendChild(endereco);
+      container.appendChild(info);
+      li.appendChild(container);
+      lista.appendChild(li);
+    });
+  } catch (error) {
+    console.error(error);
   }
-  
- randomUserGenerator(4);
-  
+}
+buscaUsuarios();
+
+const quantidade = document.getElementById("quantidade");
+quantidade.addEventListener("change", (event) =>
+  buscaUsuarios(event.target.value)
+);
