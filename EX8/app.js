@@ -1,9 +1,11 @@
+// Cria os elementos textuais da página HTML
 const criaElementoTexto = (tipo, texto) => {
   const elemento = document.createElement(tipo);
   elemento.innerText = texto;
   return elemento;
 };
 
+// Busca os usuários da API
 async function buscaUsuarios(quantidade = 10) {
   try {
     console.log("aaaa", quantidade);
