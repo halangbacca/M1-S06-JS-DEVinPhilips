@@ -5,6 +5,15 @@
   list-style: none;
 }
 
+header {
+  display: flex;
+  justify-content: center;
+  background-color: black;
+  color: aliceblue;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
 .container {
   display: flex;
   margin: 20px;
@@ -13,14 +22,9 @@
 .info {
   display: flex;
   flex-direction: column;
-  border-radius: 10px;
   gap: 10px;
   background-color: darkturquoise;
   padding: 20px;
   flex: 1;
   color: white;
-}
-
-img{
-  border-radius: 10px;
 }
